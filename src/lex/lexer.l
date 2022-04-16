@@ -1,53 +1,54 @@
-%option nounput
-%option noinput
-%option noyywrap
+%option noyywrap yylineno
+
+
 
 %{
 
+#include "include/gramer.h"
 
-
+void yyerror (char *);  
 static void input_token(const char * tokName)
 {
-    printf("%s, ""%s"" \n", tokName, yytext);
+    //printf("%s, ""%s"" \n", tokName, yytext);
 }
 
-
+int count;
 %}
 
 
-INTEGER [0-9]+
+
 IDENTIFIER[a-z_0-9]+
-FILE[a-zA-Z"."txt]+
+
 
 
   
 
 %%
-[T]          {input_token("TRUE");    }  
-[F]          {input_token("FALSE");   } 
+[T]          {count += yyleng; input_token("TRUE"); return T;   }  
+[F]          {count += yyleng; input_token("FALSE"); return F;   } 
 
-{INTEGER}    {input_token("ERROR");   }
+
  
-[(]          {input_token("LPARENT"); }
-[)]          {input_token("RPARENT"); }
+[(]          {count += yyleng; return LPARENT; }
+[)]          {count += yyleng; return RPARENT; }
 [&,|]{3,}*   {input_token("ERROR");   }  
  
-[&]{2}*      {input_token("LAND");    }
-[|]{2}*      {input_token("LOR");     }
+[&]{2}*      {count+=yyleng; return LOGIC_AND;    }
+[|]{2}*      {count+=yyleng; return LOGIC_OR;     }
 
-[!]          {input_token("LNOT");    } 
+[!]          {count+=yyleng; return LOGIC_NOT;    } 
 
-[=]          {input_token("ASIGN");   } 
-[{]          {input_token("LFPARENT");}    
-[}]          {input_token("RFPARENT");}    
-[","]        {input_token("COMMA");}       
-["\n"]       {} 
-["\t"]       {}
+[=]          {count+=yyleng; return ASSIGN;   } 
+[{]          {input_token("ERROR"); }    
+[}]          {input_token("ERROR"); }    
+[","]        {input_token("ERROR"); }       
+["\n"]       {count+=yyleng; return ENTER; } 
+["\t"]       {input_token("ERROR"); }
 [" "]        {}
 
 
 
-{IDENTIFIER} {input_token("IDENTIFIER"); }  
+{IDENTIFIER} {count+=yyleng;return IDENTIFIER; }  
 
 . {input_token("ERROR");}
 
@@ -57,19 +58,3 @@ FILE[a-zA-Z"."txt]+
 
 %%  
 
-#include "lexer.h"
-
-int main(int argc, char **argv)
-{
-   
-    FILE *test_file = fopen(argv[1], "r");
-    
-    if (test_file != NULL)
-    {
-        yyrestart(test_file);
-        
-    }
-    int res = yylex();
-    
-    return 0;
-}
