@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "*.l": "c",
-        "sstream": "c"
-    }
-}

@@ -1,5 +1,0 @@
-f = F
-T || f
-is_true(f)
-(T && T) || F
-
