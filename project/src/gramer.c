@@ -66,14 +66,18 @@
 
 
 /* First part of user prologue.  */
-#line 3 "./src/bison/gramer.y"
+#line 3 "./project/bison/gramer.y"
 
  #include <stdio.h>
+ #include <stdlib.h>
  extern FILE *yyin;
  extern int yylineno;
  extern int count;
  extern char *yytext;
  void yyerror(char *);
+
+
+
  int yylex();
 
 
@@ -85,8 +89,56 @@
         #define printf_debug(...) do{}while(0);
 #endif
 
+enum TYPE_NODE
+{
+        STATEMENT_NODE = 0,
+        LOGIC_OR_NODE,
+        LOGIC_AND_NODE,
+        ASSIGN_NODE,
+        LOGIC_NOT_NODE,
+        FUNCTION_NODE
+};
 
-#line 90 "./src/gramer.c"
+struct name
+{
+	char *type_s;
+        char *arg_1;
+};
+
+//ща будем реализовывать двусвязный список (((
+
+
+typedef struct B_Node
+{
+        int type;
+        struct B_Node *parent_node;
+        struct B_Node * next_node;
+        
+        struct B_Node *arg1;
+        struct B_Node *arg2;
+}Node;
+
+
+typedef struct list_syntax
+{
+        size_t size;
+        Node *head;
+        Node *tail;
+}vector;
+
+ vector* list_syntax_init();
+ void push_front(vector *list, int type_var);
+ void pushBack(vector *list, int type_var);
+ void print_all(vector *list);
+ void clear_list(vector *list);
+ Node* getNode(vector *list, size_t indx);
+
+ vector *sintax_list;
+
+ struct name arr_type[FUNCTION_NODE+1];
+
+
+#line 142 "./project/src/gramer.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -119,8 +171,8 @@
 
 /* Use api.header.include to #include this header
    instead of duplicating it here.  */
-#ifndef YY_YY_SRC_INCLUDE_GRAMER_H_INCLUDED
-# define YY_YY_SRC_INCLUDE_GRAMER_H_INCLUDED
+#ifndef YY_YY_PROJECT_INCLUDE_GRAMER_H_INCLUDED
+# define YY_YY_PROJECT_INCLUDE_GRAMER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -159,7 +211,7 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_SRC_INCLUDE_GRAMER_H_INCLUDED  */
+#endif /* !YY_YY_PROJECT_INCLUDE_GRAMER_H_INCLUDED  */
 
 
 
@@ -522,9 +574,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    29,    29,    29,    32,    32,    35,    36,    37,    39,
-      41,    42,    43,    44,    52,    53,    54,    55,    59,    60,
-      61
+       0,    81,    81,    81,    84,    84,    87,    88,    89,    91,
+      94,    95,    96,    97,   105,   108,   111,   114,   119,   120,
+     121
 };
 #endif
 
@@ -1330,104 +1382,115 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 3:
+#line 81 "./project/bison/gramer.y"
+                             {  }
+#line 1389 "./project/src/gramer.c"
+    break;
+
   case 5:
-#line 32 "./src/bison/gramer.y"
-                               {printf_debug("\tline %s\n", yytext);}
-#line 1337 "./src/gramer.c"
+#line 84 "./project/bison/gramer.y"
+                               {printf_debug("\tline %s\n", yytext);push_front(sintax_list, STATEMENT_NODE);print_all(sintax_list); clear_list(sintax_list);}
+#line 1395 "./project/src/gramer.c"
     break;
 
   case 6:
-#line 35 "./src/bison/gramer.y"
+#line 87 "./project/bison/gramer.y"
                                                    {printf_debug("expr code1- %s\n", yytext);}
-#line 1343 "./src/gramer.c"
+#line 1401 "./project/src/gramer.c"
     break;
 
   case 7:
-#line 36 "./src/bison/gramer.y"
+#line 88 "./project/bison/gramer.y"
                                                    {printf_debug("expr code2 - %s\n", yytext);}
-#line 1349 "./src/gramer.c"
+#line 1407 "./project/src/gramer.c"
     break;
 
   case 8:
-#line 37 "./src/bison/gramer.y"
+#line 89 "./project/bison/gramer.y"
                                                    {printf_debug("expr code3 - %s\n", yytext);}
-#line 1355 "./src/gramer.c"
+#line 1413 "./project/src/gramer.c"
     break;
 
   case 9:
-#line 39 "./src/bison/gramer.y"
-                                                   {printf_debug("expr code4 - %s\n", yytext);}
-#line 1361 "./src/gramer.c"
+#line 91 "./project/bison/gramer.y"
+                                                   {printf_debug("expr code4 - %s\n", yytext); 
+                                                                                push_front(sintax_list, FUNCTION_NODE);}
+#line 1420 "./project/src/gramer.c"
     break;
 
   case 10:
-#line 41 "./src/bison/gramer.y"
+#line 94 "./project/bison/gramer.y"
                                                    {printf_debug("expr code5 - %s\n", yytext);}
-#line 1367 "./src/gramer.c"
+#line 1426 "./project/src/gramer.c"
     break;
 
   case 11:
-#line 42 "./src/bison/gramer.y"
+#line 95 "./project/bison/gramer.y"
                                                    {printf_debug("expr code6 - %s\n", yytext);}
-#line 1373 "./src/gramer.c"
+#line 1432 "./project/src/gramer.c"
     break;
 
   case 12:
-#line 43 "./src/bison/gramer.y"
+#line 96 "./project/bison/gramer.y"
                                                    {printf_debug("expr code7 - %s\n", yytext);}
-#line 1379 "./src/gramer.c"
+#line 1438 "./project/src/gramer.c"
     break;
 
   case 13:
-#line 44 "./src/bison/gramer.y"
+#line 97 "./project/bison/gramer.y"
                                                    {printf_debug("expr code8 - %s\n", yytext);}
-#line 1385 "./src/gramer.c"
+#line 1444 "./project/src/gramer.c"
     break;
 
   case 14:
-#line 52 "./src/bison/gramer.y"
-             {printf_debug("assign code - %s\n", yytext);}
-#line 1391 "./src/gramer.c"
+#line 105 "./project/bison/gramer.y"
+             {printf_debug("assign code - %s\n", yytext); 
+                                        push_front(sintax_list, ASSIGN_NODE);}
+#line 1451 "./project/src/gramer.c"
     break;
 
   case 15:
-#line 53 "./src/bison/gramer.y"
-             {printf_debug("assign code - %s\n", yytext);}
-#line 1397 "./src/gramer.c"
+#line 108 "./project/bison/gramer.y"
+             {printf_debug("assign code - %s\n", yytext);
+                                        push_front(sintax_list, LOGIC_AND_NODE);}
+#line 1458 "./project/src/gramer.c"
     break;
 
   case 16:
-#line 54 "./src/bison/gramer.y"
-             {printf_debug("assign code - %s\n", yytext);}
-#line 1403 "./src/gramer.c"
+#line 111 "./project/bison/gramer.y"
+             {printf_debug("assign code - %s\n", yytext);
+                                        push_front(sintax_list, LOGIC_OR_NODE);}
+#line 1465 "./project/src/gramer.c"
     break;
 
   case 17:
-#line 55 "./src/bison/gramer.y"
-             {printf_debug("assign code - %s\n", yytext);}
-#line 1409 "./src/gramer.c"
+#line 114 "./project/bison/gramer.y"
+             {printf_debug("assign code - %s\n", yytext);
+                                        push_front(sintax_list, LOGIC_NOT_NODE);}
+#line 1472 "./project/src/gramer.c"
     break;
 
   case 18:
-#line 59 "./src/bison/gramer.y"
-                {printf_debug("val code - %s\n", yytext);}
-#line 1415 "./src/gramer.c"
+#line 119 "./project/bison/gramer.y"
+                {printf_debug("val code1 - %s\n", yytext);}
+#line 1478 "./project/src/gramer.c"
     break;
 
   case 19:
-#line 60 "./src/bison/gramer.y"
-                {printf_debug("val code - %s\n", yytext);}
-#line 1421 "./src/gramer.c"
+#line 120 "./project/bison/gramer.y"
+                {printf_debug("val code2 - %s\n", yytext);}
+#line 1484 "./project/src/gramer.c"
     break;
 
   case 20:
-#line 61 "./src/bison/gramer.y"
-                {printf_debug("val code - %s\n", yytext);}
-#line 1427 "./src/gramer.c"
+#line 121 "./project/bison/gramer.y"
+                {printf_debug("val code3 - %s\n", yytext);}
+#line 1490 "./project/src/gramer.c"
     break;
 
 
-#line 1431 "./src/gramer.c"
+#line 1494 "./project/src/gramer.c"
 
       default: break;
     }
@@ -1659,9 +1722,139 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 66 "./src/bison/gramer.y"
+#line 126 "./project/bison/gramer.y"
+
+/**
+ * @brief Функция инициализации двусвязного списка
+ * 
+ */
+vector* list_syntax_init()
+{
+      vector *tmp =  (vector*)malloc(sizeof(vector));
+      tmp->size=0;
+      tmp->head = tmp->tail = NULL;
+}
+
+/**
+ * @brief Функция добалвения в начало списка
+ * 
+ * @param list весть список куда добавлять, 
+ * @param type_var тип выражения 
+ */
+void push_front(vector *list, int type_var)
+{
+        Node *tmp = (Node*)malloc(sizeof(Node));
+        if(NULL==tmp)
+                exit(1);
+
+        tmp->type               = type_var;
+        tmp->next_node          = list->head;
+        tmp->parent_node        = NULL;
+        if(list->head)
+        {
+                list->head->parent_node = tmp;
+        }
+
+        list->head = tmp;
+
+        if(NULL == list->tail)
+                list->tail = tmp;
+        list->size++;
+}       
+
+/**
+ * @brief Функция добалвения в конец списка
+ * 
+ * @param list весть список куда добавлять, 
+ * @param type_var тип выражения 
+ */
+void pushBack(vector *list, int type_var)
+{
+        Node *tmp = (Node*)malloc(sizeof(Node));
+        if(NULL == tmp)
+                exit(2);
+
+        tmp->type          = type_var;
+        tmp->next_node     = NULL;
+        tmp->parent_node   = list->tail;
+
+        if(list->tail)
+                list->tail->next_node = tmp;
+
+        list->tail = tmp;
+
+        if(NULL == list->head)
+                list->head = tmp;
+
+        list->size++;
+}
 
 
+
+/**
+ * @brief Функция выводит на экран дерево разбора
+ * 
+ * @param list весть список 
+ */
+void print_all(vector *list)
+{
+        Node *tmp = list->head;
+        size_t i=0;
+
+        while(tmp)
+        {
+                printf("%s.\n", arr_type[tmp->type].type_s);
+                tmp = tmp->next_node;
+                i++;
+                
+        }
+}
+
+
+
+/**
+ * @brief Функция получения элемента списка по индексу
+ * 
+ * @param list весть список 
+ * @param indx индекс элемента который хотим получить
+ */
+Node *getNode(vector *list, size_t indx)
+{
+        Node *tmp = list->head;
+        size_t i=0;
+        while(tmp && i<indx)
+        {
+                tmp = tmp->next_node;
+                i++;
+        }
+        return tmp;
+}
+
+/**
+ * @brief Функция очистки двухсвязанного списка
+ * 
+ * @param list весть список 
+ */
+void clear_list(vector *list)
+{
+        if(0 == list->size)
+                return;
+        
+        Node *tmp = list->tail;
+
+        size_t i = 0;
+
+        while(tmp && list->size > 0)
+        {
+                tmp = getNode(list, i);
+                i++;
+                free(tmp);
+                list->size--;
+        }
+
+        list->head = NULL;
+        list->tail = NULL;
+}
 
 void yyerror(char *errmsg)
 {
@@ -1670,14 +1863,17 @@ void yyerror(char *errmsg)
 
 int main(int argc, char **argv)
 {
-       
-        // if(argc !=2)
-        // {
-        //         fprintf(stderr, "x: ошибка: не задан входной файл\n");
-        //         return -1;
+        
+        sintax_list = list_syntax_init();
 
+        
 
-        // }
+	arr_type[STATEMENT_NODE].type_s   =  "STATEMENT";
+	arr_type[LOGIC_OR_NODE].type_s    =  "  --LOGIC_OR";
+	arr_type[LOGIC_AND_NODE].type_s   =  "  --LOGIC_AND";
+	arr_type[ASSIGN_NODE].type_s      =  "  --ASSIGN";
+	arr_type[LOGIC_NOT_NODE].type_s   =  "  --LOGIC_NOT";
+        arr_type[FUNCTION_NODE].type_s    =  "  --FUNCTION";
 
         if(NULL == (yyin = fopen(argv[1], "r")))
         {
@@ -1686,6 +1882,7 @@ int main(int argc, char **argv)
         }
         count = 1;
         yylineno = 1;
+        
         int res = yyparse();
         
         if(!res)

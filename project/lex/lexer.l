@@ -4,7 +4,7 @@
 
 %{
 
-#include "include/gramer.h"
+#include "../include/gramer.h"
 
 void yyerror (char *);  
 static void input_token(const char * tokName)

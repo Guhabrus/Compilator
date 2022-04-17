@@ -1,6 +1,6 @@
-#line 2 "./src/lexer.c"
+#line 2 "./project/src/lexer.c"
 
-#line 4 "./src/lexer.c"
+#line 4 "./project/src/lexer.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -486,10 +486,10 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "./src/lex/lexer.l"
-#line 6 "./src/lex/lexer.l"
+#line 1 "./project/lex/lexer.l"
+#line 6 "./project/lex/lexer.l"
 
-#include "include/gramer.h"
+#include "../include/gramer.h"
 
 void yyerror (char *);  
 static void input_token(const char * tokName)
@@ -498,8 +498,8 @@ static void input_token(const char * tokName)
 }
 
 int count;
-#line 502 "./src/lexer.c"
-#line 503 "./src/lexer.c"
+#line 502 "./project/src/lexer.c"
+#line 503 "./project/src/lexer.c"
 
 #define INITIAL 0
 
@@ -716,9 +716,9 @@ YY_DECL
 		}
 
 	{
-#line 26 "./src/lex/lexer.l"
+#line 26 "./project/lex/lexer.l"
 
-#line 722 "./src/lexer.c"
+#line 722 "./project/src/lexer.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -787,96 +787,96 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 27 "./src/lex/lexer.l"
+#line 27 "./project/lex/lexer.l"
 {count += yyleng; input_token("TRUE"); return T;   }  
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 28 "./src/lex/lexer.l"
+#line 28 "./project/lex/lexer.l"
 {count += yyleng; input_token("FALSE"); return F;   } 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 32 "./src/lex/lexer.l"
+#line 32 "./project/lex/lexer.l"
 {count += yyleng; return LPARENT; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 33 "./src/lex/lexer.l"
+#line 33 "./project/lex/lexer.l"
 {count += yyleng; return RPARENT; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 34 "./src/lex/lexer.l"
+#line 34 "./project/lex/lexer.l"
 {input_token("ERROR");   }  
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 36 "./src/lex/lexer.l"
+#line 36 "./project/lex/lexer.l"
 {count+=yyleng; return LOGIC_AND;    }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 37 "./src/lex/lexer.l"
+#line 37 "./project/lex/lexer.l"
 {count+=yyleng; return LOGIC_OR;     }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 39 "./src/lex/lexer.l"
+#line 39 "./project/lex/lexer.l"
 {count+=yyleng; return LOGIC_NOT;    } 
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 41 "./src/lex/lexer.l"
+#line 41 "./project/lex/lexer.l"
 {count+=yyleng; return ASSIGN;   } 
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 42 "./src/lex/lexer.l"
+#line 42 "./project/lex/lexer.l"
 {input_token("ERROR"); }    
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 43 "./src/lex/lexer.l"
+#line 43 "./project/lex/lexer.l"
 {input_token("ERROR"); }    
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 44 "./src/lex/lexer.l"
+#line 44 "./project/lex/lexer.l"
 {input_token("ERROR"); }       
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 45 "./src/lex/lexer.l"
+#line 45 "./project/lex/lexer.l"
 {count+=yyleng; return ENTER; } 
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 46 "./src/lex/lexer.l"
+#line 46 "./project/lex/lexer.l"
 {input_token("ERROR"); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 47 "./src/lex/lexer.l"
+#line 47 "./project/lex/lexer.l"
 {}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 51 "./src/lex/lexer.l"
+#line 51 "./project/lex/lexer.l"
 {count+=yyleng;return IDENTIFIER; }  
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 53 "./src/lex/lexer.l"
+#line 53 "./project/lex/lexer.l"
 {input_token("ERROR");}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 59 "./src/lex/lexer.l"
+#line 59 "./project/lex/lexer.l"
 ECHO;
 	YY_BREAK
-#line 880 "./src/lexer.c"
+#line 880 "./project/src/lexer.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1893,7 +1893,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 59 "./src/lex/lexer.l"
+#line 59 "./project/lex/lexer.l"
 
 
 

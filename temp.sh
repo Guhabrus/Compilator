@@ -1,0 +1,1 @@
+make clean && make all && obj/lexer.o test/test.txt
